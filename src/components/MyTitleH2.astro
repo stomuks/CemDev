@@ -1,0 +1,10 @@
+---
+const { class: className, ...rest } = Astro.props
+---
+
+<h2
+	class=`text-4xl text-gray-950 font-regular uppercase tracking-[0.0375em] ${className}`
+	{...rest}
+>
+	{Astro.props.title}
+</h2>

@@ -1,0 +1,41 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import MyImage from './MyImage.astro'
+
+const { data } = await useStoryblokApi().get('cdn/stories/global/megamenu', {
+	version: 'draft',
+	resolve_links: 'url'
+})
+
+const response = data?.story?.content?.global.find(
+	(x: any) => x.component === 'Menu'
+)
+---
+
+<header class='w-full h-24 bg-[#f7f6fd]'>
+	<div class='container h-full mx-auto flex items-center justify-between'>
+		<a href='/'>
+			<MyImage src={response?.icon.filename} alt={response?.icon.alt} />
+		</a>
+		<nav>
+			<ul class='flex space-x-8 text-lg font-bold'>
+				{
+					response?.items?.map((item: any) => (
+						<li>
+							<a
+								href={
+									item.link.cached_url === 'home'
+										? '/'
+										: '/' + item.link.cached_url
+								}
+							>
+								{item?.link?.story.name}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<button>{response?.button}</button>
+	</div>
+</header>

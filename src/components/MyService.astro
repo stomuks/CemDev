@@ -1,0 +1,23 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import MyTitleH2 from '../components/MyTitleH2.astro'
+import MyServiceCards from './MyServiceCards.astro'
+
+const { data } = await useStoryblokApi().get('cdn/stories/global/service', {
+	version: 'draft',
+	resolve_links: 'url'
+})
+const response = data?.story?.content?.global.find(
+	(x: any) => x.component === 'MyService'
+)
+---
+
+<div
+	class='grid grid-cols-2 justify-center gap-6 rounded-4xl p-6 text-white bgGrayGradient'
+>
+	{
+		response?.Cards?.map((blok, index) => {
+			return <MyServiceCards blok={blok} id={index} />
+		})
+	}
+</div>

@@ -1,0 +1,17 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+
+const { blok } = Astro.props
+
+const { ...rest } = Astro.props
+
+import { MyLink } from '@/components/ui/myLink'
+---
+
+<div {...storyblokEditable(blok)}>
+	<MyLink href={blok.link.cached_url} {...rest}>
+		{blok.title}
+	</MyLink>
+</div>
+
+<!-- <a class=`px-2 py-1 border-b border-slate-400 text-slate-800 text-lg arrow-right ${className}` {...rest} href={blok.link.cached_url}>{blok.title}</a> -->

@@ -1,0 +1,25 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+const { blok } = Astro.props
+const { id } = Astro.props
+
+let blockClass = ''
+
+if (id === 0) {
+	blockClass = 'bg-primary-3 w-64 rounded-l-2xl rounded-r'
+}
+if (id === 1) {
+	blockClass = 'bg-primary-5 w-128 rounded'
+}
+if (id === 2) {
+	blockClass = 'bg-primary-2 grow basis-0 rounded-r-2xl rounded-l'
+}
+---
+
+<div
+	{...storyblokEditable(blok)}
+	class=`p-7 text-center flex items-center gap-3 ${blockClass}`
+>
+	<span class='text-6xl text-white'>{blok.Number}</span>
+	<h3 class='text-left text-lg font-bold text-white'>{blok.title}</h3>
+</div>
