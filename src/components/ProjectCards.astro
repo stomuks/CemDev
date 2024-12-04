@@ -1,0 +1,25 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+const { blok } = Astro.props
+---
+
+<div
+	{...storyblokEditable(blok)}
+	class=`flex h-136 items-end rounded-3xl p-4`
+	style=`background-image: url(${blok?.content?.Gallery[0]?.filename})`
+>
+	<div
+		class=`container mx-auto flex flex-col bg-no-repeat bg-auto bg-right-6-top gap-4 p-6 rounded-3xl`
+	>
+		<div class='flex flex-col justify-between gap-2'>
+			<h3 class='text-xl uppercase'>{blok?.name}</h3>
+			<p>{blok?.Description}</p>
+		</div>
+		{
+			blok.Link?.map((blok) => {
+				return <StoryblokComponent blok={blok} size='lg' />
+			})
+		}
+	</div>
+</div>

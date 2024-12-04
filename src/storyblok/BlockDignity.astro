@@ -1,0 +1,36 @@
+---
+import { storyblokEditable } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import MyTitleH2 from '../components/ui/MyTitleH2.astro'
+import { useStoryblokApi } from '@storyblok/astro'
+import DignityCards from '@/components/DignityCards.astro'
+
+const { blok } = Astro.props
+const { data } = await useStoryblokApi().get('cdn/stories/global/dignity', {
+	version: 'draft',
+	resolve_links: 'url'
+})
+const response = data?.story?.content?.global.find(
+	(x: any) => x.component === 'Dignity'
+)
+---
+
+<div {...storyblokEditable(blok)} class='bg-gray-200 py-24'>
+	<div class='container mx-auto flex flex-col gap-12'>
+		<div class='flex items-end justify-between gap-12'>
+			<MyTitleH2 title={blok.Title} class='max-w-4xl' />
+			{
+				blok.Link?.map((blok) => {
+					return <StoryblokComponent blok={blok} variant='link' size='link' />
+				})
+			}
+		</div>
+		<div class='flex justify-between gap-1 rounded-3xl bg-white p-2'>
+			{
+				response.cards?.map((blok, index) => {
+					return <DignityCards blok={blok} id={index} />
+				})
+			}
+		</div>
+	</div>
+</div>

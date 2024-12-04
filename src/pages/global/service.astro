@@ -1,8 +1,29 @@
 ---
+import { useStoryblokApi } from '@storyblok/astro'
+import ServiceCards from '@/components/ServiceCards.astro'
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import MyService from '@/components/MyService.astro'
+
+const { data } = await useStoryblokApi().get('cdn/stories/global/service', {
+	version: 'draft',
+	resolve_links: 'url'
+})
+const response = data?.story?.content?.global.find(
+	(x: any) => x.component === 'Service'
+)
 ---
 
 <BaseLayout>
-	<MyService />
+	<div class='bg-white py-24'>
+		<div class='container mx-auto flex flex-col gap-12'>
+			<div
+				class='grid grid-cols-2 justify-center gap-6 rounded-4xl p-6 text-white bgGrayGradient'
+			>
+				{
+					response?.Cards?.map((blok, index) => {
+						return <ServiceCards blok={blok} id={index} />
+					})
+				}
+			</div>
+		</div>
+	</div>
 </BaseLayout>

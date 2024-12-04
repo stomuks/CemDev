@@ -1,0 +1,23 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import DignityCards from '@/components/DignityCards.astro'
+
+const { data } = await useStoryblokApi().get('cdn/stories/global/dignity', {
+	version: 'draft',
+	resolve_links: 'url'
+})
+const response = data?.story?.content?.global.find(
+	(x: any) => x.component === 'Dignity'
+)
+---
+
+<BaseLayout>
+	<div class='flex justify-between gap-1 rounded-3xl bg-white p-2'>
+		{
+			response.cards?.map((blok, index) => {
+				return <DignityCards blok={blok} id={index} />
+			})
+		}
+	</div>
+</BaseLayout>

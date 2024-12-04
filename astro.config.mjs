@@ -19,17 +19,13 @@ export default defineConfig({
 			},
 			components: {
 				page: 'storyblok/Page',
-				feature: 'storyblok/Feature',
-				grid: 'storyblok/Grid',
-				teaser: 'storyblok/Teaser',
-				global: 'storyblok/Global',
-				hero: 'storyblok/Hero',
-				dignity: 'storyblok/Dignity',
-				video: 'storyblok/Video',
-				dignityCards: 'storyblok/DignityCards',
-				link: 'components/Link',
-				pageService: 'storyblok/PageService',
-				service: 'components/MyService'
+				hero: 'storyblok/BlockHero',
+				video: 'storyblok/BlockVideo',
+				link: 'components/ui/Link',
+				blockDignity: 'storyblok/BlockDignity',
+				blockService: 'storyblok/BlockService',
+				blockProject: 'storyblok/BlockProject',
+				Project: 'storyblok/Project'
 			}
 		}),
 		tailwind(),

@@ -1,0 +1,20 @@
+---
+import ServiceCards from '@/components/ServiceCards.astro'
+import { useStoryblokApi } from '@storyblok/astro'
+
+const { data } = await useStoryblokApi().get('cdn/stories', {
+	version: 'draft',
+	starts_with: 'projects/',
+	resolve_links: 'url'
+})
+---
+
+<div
+	class='grid grid-cols-2 justify-center gap-6 rounded-4xl p-6 text-white bgGrayGradient'
+>
+	{
+		data?.Cards?.map((blok, index) => {
+			return <ServiceCards blok={blok} id={index} />
+		})
+	}
+</div>
